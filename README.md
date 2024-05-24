@@ -7,6 +7,7 @@ A collection of maps for the real-time strategy game Warzone 2100.
 - [Hills](#Hills)
 - [Short](#Short)
 - [Water](#Water)
+- [Lanes](#Lanes)
 
 ## Classic
 ![NTW_3v3](https://github.com/aco4/maps-wz2100/raw/main/images/NTW_3v3.png)
@@ -63,3 +64,11 @@ The battlefield is water. Cyborg factories are removed.
 - [NTW_Water_3v3](https://github.com/aco4/maps-wz2100/raw/main/maps/6c-NTW_Water_3v3.wz)
 - [NTW_Water_4v4](https://github.com/aco4/maps-wz2100/raw/main/maps/8c-NTW_Water_4v4.wz)
 - [NTW_Water_5v5](https://github.com/aco4/maps-wz2100/raw/main/maps/10c-NTW_Water_5v5.wz)
+
+## Lanes
+![NTW_Lanes_3v3](https://github.com/aco4/maps-wz2100/raw/main/images/NTW_Lanes_3v3.png)
+The base dividers are 5 times longer.
+- [NTW_Lanes_2v2](https://github.com/aco4/maps-wz2100/raw/main/maps/4c-NTW_Lanes_2v2.wz)
+- [NTW_Lanes_3v3](https://github.com/aco4/maps-wz2100/raw/main/maps/6c-NTW_Lanes_3v3.wz)
+- [NTW_Lanes_4v4](https://github.com/aco4/maps-wz2100/raw/main/maps/8c-NTW_Lanes_4v4.wz)
+- [NTW_Lanes_5v5](https://github.com/aco4/maps-wz2100/raw/main/maps/10c-NTW_Lanes_5v5.wz)
