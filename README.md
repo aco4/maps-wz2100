@@ -4,7 +4,7 @@
 A collection of maps for the real-time strategy game Warzone 2100.
 - [Classic](#Classic)
 - [Island](#Island)
-- [Hilly](#Hilly)
+- [Hills](#Hills)
 - [Short](#Short)
 - [Water](#Water)
 
