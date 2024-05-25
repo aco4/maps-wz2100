@@ -1,5 +1,3 @@
-
-
 # maps-wz2100
 A collection of maps for the real-time strategy game Warzone 2100.
 - [Classic](#Classic)
@@ -8,6 +6,15 @@ A collection of maps for the real-time strategy game Warzone 2100.
 - [Short](#Short)
 - [Water](#Water)
 - [Lanes](#Lanes)
+
+### Instructions for download:
+1. Launch Warzone 2100
+2. Click `Options`
+3. In the bottom left corner, click `Open Configuration Directory`
+4. Open the `maps` folder
+5. Download the map and move it into the `maps` folder
+6. Restart Warzone 2100
+7. Done
 
 ## Classic
 ![NTW_3v3](https://github.com/aco4/maps-wz2100/raw/main/images/NTW_3v3.png)
