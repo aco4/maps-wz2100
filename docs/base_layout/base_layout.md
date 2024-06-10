@@ -103,3 +103,8 @@
 - Less room on the sides
 - Oils are easier to bomb
 ```
+# short-5
+![](https://github.com/aco4/maps-wz2100/raw/main/docs/base_layout/short-5.png)
+```diff
+- Less room on the sides
+```
