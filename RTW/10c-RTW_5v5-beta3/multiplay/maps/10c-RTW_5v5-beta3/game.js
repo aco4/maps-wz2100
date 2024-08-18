@@ -329,6 +329,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 //
 // Documentation
 //
@@ -364,9 +365,6 @@
 //
 //     0,3  1,3  2,3
 //
-// e.g. setHeight([2,1], 100)
-//
-//
 // First order variables (hardcoded constants, should never change)
 //
 //     const CONST_ABSOLUTE_MAP_WIDTH = 250;
@@ -385,6 +383,17 @@
 //     let summedBaseWidth_t = 0;
 //     let origin = bases[p].bb.NW;
 //
+// Base Layout Naming
+//
+//     Name followed by length x width
+//
+//     - MxN_name
+//
+// gameRand(n)
+//
+//     Generates a random number between 0 and n-1 (inclusive). If called without parameters, generates a random number between 0 and 0xffffffff (inclusive).
+//
+
 
 
 //
@@ -412,7 +421,95 @@ const RMAX = 0xffffffff;
 // Enums
 //
 const BaseLayouts = Object.freeze({
-    "normal-f": [
+    "20x29_normal-cF1-rF": [
+        "                             ",
+        "      x   x   x   x   x      ",
+        "      c   c   c   c   c      ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "20x29_normal-cF1-rB": [
+        "                             ",
+        "      x   x   x   x   x      ",
+        "      c   c   c   c   c      ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "20x29_normal-cF2-rF": [
+        "                             ",
+        "       x   x   x   x   x     ",
+        "       c   c   c   c   c     ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "20x29_normal-cF2-rB": [
+        "                             ",
+        "       x   x   x   x   x     ",
+        "       c   c   c   c   c     ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "20x29_normal-cF3-rF": [
         "                             ",
         "        x   x   x   x   x    ",
         "        c   c   c   c   c    ",
@@ -421,8 +518,8 @@ const BaseLayouts = Object.freeze({
         "      xfx xfx xfx xfx xfx    ",
         "      xxx xxx xxx xxx xxx    ",
         "                             ",
-        "          tt xx              ",
-        " o o o o  tt xh              ",
+        "             txxt            ",
+        " o o o o     txht            ",
         " o o o o                     ",
         " o o o o  xx xx xx xx xx     ",
         " o o o o  xr xr xr xr xr     ",
@@ -432,16 +529,42 @@ const BaseLayouts = Object.freeze({
         " o o o o                     ",
         " o o o o  xx xx xx xx xx     ",
         " o o o o  xp xp xp xp xp     ",
-        "                             "
+        "                             ",
     ],
-    "normal-b": [
+    "20x29_normal-cF3-rB": [
+        "                             ",
+        "        x   x   x   x   x    ",
+        "        c   c   c   c   c    ",
         "                             ",
         "      xxx xxx xxx xxx xxx    ",
         "      xfx xfx xfx xfx xfx    ",
         "      xxx xxx xxx xxx xxx    ",
         "                             ",
-        "        ttx x xx x x x       ",
-        " o o o ottc c xh c c c       ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "21x29_normal-cFF1-rF": [
+        "                             ",
+        "      x   x   x   x   x      ",
+        "      c   c   c   c   c      ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
         " o o o o                     ",
         " o o o o  xx xx xx xx xx     ",
         " o o o o  xr xr xr xr xr     ",
@@ -451,16 +574,245 @@ const BaseLayouts = Object.freeze({
         " o o o o                     ",
         " o o o o  xx xx xx xx xx     ",
         " o o o o  xp xp xp xp xp     ",
-        "                             "
+        "                             ",
     ],
-    "compact-b": [
+    "21x29_normal-cFF1-rB": [
+        "                             ",
+        "      x   x   x   x   x      ",
+        "      c   c   c   c   c      ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "21x29_normal-cFF2-rF": [
+        "                             ",
+        "       x   x   x   x   x     ",
+        "       c   c   c   c   c     ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "21x29_normal-cFF2-rB": [
+        "                             ",
+        "       x   x   x   x   x     ",
+        "       c   c   c   c   c     ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "21x29_normal-cFF3-rF": [
+        "                             ",
+        "        x   x   x   x   x    ",
+        "        c   c   c   c   c    ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "21x29_normal-cFF3-rB": [
+        "                             ",
+        "        x   x   x   x   x    ",
+        "        c   c   c   c   c    ",
+        "                             ",
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "             txxt            ",
+        " o o o o     txht            ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "17x29_normal-cB1-rF": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "         txxtx x x x x       ",
+        " o o o o txhtc c c c c       ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "17x29_normal-cB1-rB": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "         txxtx x x x x       ",
+        " o o o o txhtc c c c c       ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "17x29_normal-cB2-rF": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "          txxtx x x x x      ",
+        " o o o o  txhtc c c c c      ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "17x29_normal-cB2-rB": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "          txxtx x x x x      ",
+        " o o o o  txhtc c c c c      ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "17x29_normal-cB3-rF": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "          x xtxxtx x x       ",
+        " o o o o  c ctxhtc c c       ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        "                             ",
+    ],
+    "17x29_normal-cB3-rB": [
+        "                             ",
+        "      xxx xxx xxx xxx xxx    ",
+        "      xfx xfx xfx xfx xfx    ",
+        "      xxx xxx xxx xxx xxx    ",
+        "                             ",
+        "          x xtxxtx x x       ",
+        " o o o o  c ctxhtc c c       ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xp xp xp xp xp     ",
+        " o o o o                     ",
+        " o o o o  xx xx xx xx xx     ",
+        " o o o o  xr xr xr xr xr     ",
+        "                             ",
+    ],
+    "17x29_compact-c1-rF": [
         "                             ",
         "     xxx xxx xxx xxx xxx     ",
         "     xfx xfx xfx xfx xfx     ",
         "     xxx xxx xxx xxx xxx     ",
         "                             ",
-        "         ttx x xx x x x      ",
-        "    oo oottc c xh c c c      ",
+        "          txxtx x x x x      ",
+        "    oo oo txhtc c c c c      ",
         "    oo oo                    ",
         "    oo oo  xx xx xx xx xx    ",
         "    oo oo  xr xr xr xr xr    ",
@@ -470,9 +822,104 @@ const BaseLayouts = Object.freeze({
         "    oo oo                    ",
         "    oo oo  xx xx xx xx xx    ",
         "    oo oo  xp xp xp xp xp    ",
-        "                             "
+        "                             ",
     ],
-    "short-3-c": [
+    "17x29_compact-c2-rF": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "           txxtx x x x x     ",
+        "    oo oo  txhtc c c c c     ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xr xr xr xr xr    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "                             ",
+    ],
+    "17x29_compact-c3-rF": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "           x xtxxtx x x      ",
+        "    oo oo  c ctxhtc c c      ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xr xr xr xr xr    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "                             ",
+    ],
+    "17x29_compact-c1-rB": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "          txxtx x x x x      ",
+        "    oo oo txhtc c c c c      ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xr xr xr xr xr    ",
+        "                             ",
+    ],
+    "17x29_compact-c2-rB": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "           txxtx x x x x     ",
+        "    oo oo  txhtc c c c c     ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xr xr xr xr xr    ",
+        "                             ",
+    ],
+    "17x29_compact-c3-rB": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "           x xtxxtx x x      ",
+        "    oo oo  c ctxhtc c c      ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xp xp xp xp xp    ",
+        "    oo oo                    ",
+        "    oo oo  xx xx xx xx xx    ",
+        "    oo oo  xr xr xr xr xr    ",
+        "                             ",
+    ],
+    "17x29_short-3-c": [
         "                             ",
         "      x   x   x   x   x      ",
         "      c   c   c   c   c      ",
@@ -489,9 +936,9 @@ const BaseLayouts = Object.freeze({
         "         oo oo oo oo         ",
         "   xx xx oo oo oo oo xx xx   ",
         "   xp xp oo oo oo oo xp xp   ",
-        "                             "
+        "                             ",
     ],
-    "short-4-c": [
+    "17x29_short-4-c": [
         "                             ",
         "      x   x   x   x   x      ",
         "      c   c   c   c   c      ",
@@ -508,9 +955,9 @@ const BaseLayouts = Object.freeze({
         "                             ",
         "   ooooo ooooo ooooo ooooo   ",
         "   ooooo ooooo ooooo ooooo   ",
-        "                             "
+        "                             ",
     ],
-    "short-5": [
+    "17x29_kracker-rF": [
         "                             ",
         "        x   x   x   x   x    ",
         "        c   c   c   c   c    ",
@@ -527,28 +974,28 @@ const BaseLayouts = Object.freeze({
         "   o o o o o                 ",
         "   o o o o o xx xx xx xx xx  ",
         "   o o o o o xp xp xp xp xp  ",
-        "                             "
+        "                             ",
     ],
-    "short-5-1": [
+    "17x29_kracker-rB": [
         "                             ",
-        "   x   x   x   x   x         ",
-        "   c   c   c   c   c         ",
+        "        x   x   x   x   x    ",
+        "        c   c   c   c   c    ",
         "                             ",
-        "   xxx xxx xxx xxx xxx       ",
-        "   xfx xfx xfx xfx xfxtxxt   ",
-        "   xxx xxx xxx xxx xxxtxht   ",
+        "        xxx xxx xxx xxx xxx  ",
+        "    txxtxfx xfx xfx xfx xfx  ",
+        "    txhtxxx xxx xxx xxx xxx  ",
         "                             ",
-        "   xx xx xx xx xx o o o o o  ",
-        "   xr xr xr xr xr o o o o o  ",
-        "                  o o o o o  ",
-        "   xx xx xx xx xx o o o o o  ",
-        "   xp xp xp xp xp o o o o o  ",
-        "                  o o o o o  ",
-        "   xx xx xx xx xx o o o o o  ",
-        "   xp xp xp xp xp o o o o o  ",
-        "                             "
+        "   o o o o o xx xx xx xx xx  ",
+        "   o o o o o xp xp xp xp xp  ",
+        "   o o o o o                 ",
+        "   o o o o o xx xx xx xx xx  ",
+        "   o o o o o xp xp xp xp xp  ",
+        "   o o o o o                 ",
+        "   o o o o o xx xx xx xx xx  ",
+        "   o o o o o xr xr xr xr xr  ",
+        "                             ",
     ],
-    "twin-1": [
+    "17x29_twin-1-rF": [
         "                             ",
         "     xxx xxx xxx xxx xxx     ",
         "     xfx xfx xfx xfx xfx     ",
@@ -565,47 +1012,28 @@ const BaseLayouts = Object.freeze({
         " o o                     o o ",
         " o o     xx xx xx xx xx  o o ",
         " o o     xp xp xp xp xp  o o ",
-        "                             "
+        "                             ",
     ],
-    "twin-2": [
+    "17x29_twin-1-rB": [
         "                             ",
         "     xxx xxx xxx xxx xxx     ",
         "     xfx xfx xfx xfx xfx     ",
         "     xxx xxx xxx xxx xxx     ",
         "                             ",
-        "        x x xtxxtx x         ",
-        " o o    c c ctxhtc c     o o ",
+        "         x xtxxtx x x        ",
+        " o o     c ctxhtc c c    o o ",
         " o o                     o o ",
-        " o o  xx xx xx xx xx     o o ",
-        " o o  xr xr xr xr xr     o o ",
+        " o o     xx xx xx xx xx  o o ",
+        " o o     xp xp xp xp xp  o o ",
         " o o                     o o ",
-        " o o  xx xx xx xx xx     o o ",
-        " o o  xp xp xp xp xp     o o ",
+        " o o     xx xx xx xx xx  o o ",
+        " o o     xp xp xp xp xp  o o ",
         " o o                     o o ",
-        " o o  xx xx xx xx xx     o o ",
-        " o o  xp xp xp xp xp     o o ",
-        "                             "
-    ],
-    "twin-3": [
+        " o o     xx xx xx xx xx  o o ",
+        " o o     xr xr xr xr xr  o o ",
         "                             ",
-        "     xxx xxx xxx xxx xxx     ",
-        "     xfx xfx xfx xfx xfx     ",
-        "     xxx xxx xxx xxx xxx     ",
-        "                             ",
-        "      x   x   x   x   x      ",
-        " o o  c   c   c   c   c  o o ",
-        " o o                     o o ",
-        " o o  xx xx xx xx xxtxxt o o ",
-        " o o  xr xr xr xr xrtxht o o ",
-        " o o                     o o ",
-        " o o  xx xx xx xx xx     o o ",
-        " o o  xp xp xp xp xp     o o ",
-        " o o                     o o ",
-        " o o  xx xx xx xx xx     o o ",
-        " o o  xp xp xp xp xp     o o ",
-        "                             "
     ],
-    "twin-4": [
+    "17x29_twin-2-rF": [
         "                             ",
         "     xxx xxx xxx xxx xxx     ",
         "     xfx xfx xfx xfx xfx     ",
@@ -622,7 +1050,26 @@ const BaseLayouts = Object.freeze({
         " o o                     o o ",
         " o o     xx xx xx xx xx  o o ",
         " o o     xp xp xp xp xp  o o ",
-        "                             "
+        "                             ",
+    ],
+    "17x29_twin-2-rB": [
+        "                             ",
+        "     xxx xxx xxx xxx xxx     ",
+        "     xfx xfx xfx xfx xfx     ",
+        "     xxx xxx xxx xxx xxx     ",
+        "                             ",
+        "      x   x   x   x   x      ",
+        " o o  c   c   c   c   c  o o ",
+        " o o                     o o ",
+        " o o txxtxx xx xx xx xx  o o ",
+        " o o txhtxp xp xp xp xp  o o ",
+        " o o                     o o ",
+        " o o     xx xx xx xx xx  o o ",
+        " o o     xp xp xp xp xp  o o ",
+        " o o                     o o ",
+        " o o     xx xx xx xx xx  o o ",
+        " o o     xr xr xr xr xr  o o ",
+        "                             ",
     ],
     // "random-1": [
     //     "            tttt             ",
@@ -662,7 +1109,7 @@ const BaseLayouts = Object.freeze({
     //     "   oo xr o xx o   xxx  o   xp",
     //     "         o xp          o     ",
     // ],
-    "narrow-1": [
+    "29x13_narrow-1": [
         "  x x x x x  ",
         "  c c c c c  ",
         "             ",
@@ -691,9 +1138,9 @@ const BaseLayouts = Object.freeze({
         "             ",
         " ooooo ooooo ",
         " ooooo ooooo ",
-        "             "
+        "             ",
     ],
-    "narrow-2": [
+    "29x13_narrow-2": [
         "  x x x x x  ",
         "  c c c c c  ",
         "             ",
@@ -722,9 +1169,9 @@ const BaseLayouts = Object.freeze({
         "             ",
         " ooooo ooooo ",
         " ooooo ooooo ",
-        "             "
+        "             ",
     ],
-    "wide-1-f": [
+    "17x31_wide-1-cF": [
         "                               ",
         "       x   x   x   x   x       ",
         "       c   c   c   c   c       ",
@@ -743,7 +1190,27 @@ const BaseLayouts = Object.freeze({
         " oo oo oo oo oo oo oo oo oo oo ",
         "                               ",
     ],
-    "wide-1-b": [
+    "18x31_wide-1-cFF": [
+        "                               ",
+        "       x   x   x   x   x       ",
+        "       c   c   c   c   c       ",
+        "                               ",
+        "                               ",
+        "      xxx xxx xxx xxx xxx      ",
+        "      xfx xfx xfx xfx xfx      ",
+        "      xxx xxx xxx xxx xxx      ",
+        "                               ",
+        "       xx xxtxxtxx xx xx       ",
+        "       xr xrtxhtxr xr xr       ",
+        "                               ",
+        " xx xx xx xx xx xx xx xx xx xx ",
+        " xp xp xp xp xp xp xp xp xp xp ",
+        "                               ",
+        " oo oo oo oo oo oo oo oo oo oo ",
+        " oo oo oo oo oo oo oo oo oo oo ",
+        "                               ",
+    ],
+    "17x31_wide-1-cB": [
         "                               ",
         "      xxx xxx xxx xxx xxx      ",
         "      xfx xfx xfx xfx xfx      ",
@@ -762,7 +1229,7 @@ const BaseLayouts = Object.freeze({
         " oo oo oo oo oo oo oo oo oo oo ",
         "                               ",
     ],
-    "wide-2-f": [
+    "17x31_wide-2-cF": [
         "                               ",
         "       x   x   x   x   x       ",
         "       c   c   c   c   c       ",
@@ -781,7 +1248,27 @@ const BaseLayouts = Object.freeze({
         " xp xp xp xp xp xp xp xp xp xp ",
         "                               ",
     ],
-    "wide-2-b": [
+    "18x31_wide-2-cFF": [
+        "                               ",
+        "       x   x   x   x   x       ",
+        "       c   c   c   c   c       ",
+        "                               ",
+        "                               ",
+        "      xxx xxx xxx xxx xxx      ",
+        "      xfx xfx xfx xfx xfx      ",
+        "      xxx xxx xxx xxx xxx      ",
+        "                               ",
+        "       xx xxtxxtxx xx xx       ",
+        "       xr xrtxhtxr xr xr       ",
+        "                               ",
+        "     oooooooooo oooooooooo     ",
+        "     oooooooooo oooooooooo     ",
+        "                               ",
+        " xx xx xx xx xx xx xx xx xx xx ",
+        " xp xp xp xp xp xp xp xp xp xp ",
+        "                               ",
+    ],
+    "17x31_wide-2-cB": [
         "                               ",
         "      xxx xxx xxx xxx xxx      ",
         "      xfx xfx xfx xfx xfx      ",
@@ -800,7 +1287,7 @@ const BaseLayouts = Object.freeze({
         " xp xp xp xp xp xp xp xp xp xp ",
         "                               ",
     ],
-    "superwide-1": [
+    "13x43_superwide": [
         "                                           ",
         "             x   x   x   x   x             ",
         "             c   c   c   c   c             ",
@@ -815,9 +1302,88 @@ const BaseLayouts = Object.freeze({
         " oooooooooooooooooooo oooooooooooooooooooo ",
         "                                           ",
     ],
-    // "SPECIAL_RANDOM": [ // TODO
-    //     ""
-    // ]
+    "25x22_shtorm": [
+        "          xx          ",
+        "          xh          ",
+        "                      ",
+        "   x   x   x   x   x  ",
+        "   c   c   c   c   c  ",
+        "                      ",
+        "  xxx xxx xxx xxx xxx ",
+        "  xfx xfx xfx xfx xfx ",
+        "  xxx xxx xxx xxx xxx ",
+        "                      ",
+        "    xx xx xx xx xx    ",
+        "    xr xr xr xr xr    ",
+        "                      ",
+        "    xx xx xx xx xx    ",
+        "    xp xp xp xp xp    ",
+        "                      ",
+        "    xx xx xx xx xx    ",
+        "    xp xp xp xp xp    ",
+        "                      ",
+        "      oooooooooo      ",
+        "      oooooooooo      ",
+        "                      ",
+        "      oooooooooo      ",
+        "      oooooooooo      ",
+        "                      ",
+    ]
+});
+
+const BaseLayoutWeights = Object.freeze({
+    "20x29_normal-cF1-rF": 1,
+    "20x29_normal-cF1-rB": 1,
+    "20x29_normal-cF2-rF": 1,
+    "20x29_normal-cF2-rB": 1,
+    "20x29_normal-cF3-rF": 1,
+    "20x29_normal-cF3-rB": 1,
+    "21x29_normal-cFF1-rF": 1,
+    "21x29_normal-cFF1-rB": 1,
+    "21x29_normal-cFF2-rF": 1,
+    "21x29_normal-cFF2-rB": 1,
+    "21x29_normal-cFF3-rF": 1,
+    "21x29_normal-cFF3-rB": 1,
+    "17x29_normal-cB1-rF": 1,
+    "17x29_normal-cB1-rB": 1,
+    "17x29_normal-cB2-rF": 1,
+    "17x29_normal-cB2-rB": 1,
+    "17x29_normal-cB3-rF": 1,
+    "17x29_normal-cB3-rB": 1,
+
+    "17x29_compact-c1-rF": 3,
+    "17x29_compact-c2-rF": 3,
+    "17x29_compact-c3-rF": 3,
+    "17x29_compact-c1-rB": 3,
+    "17x29_compact-c2-rB": 3,
+    "17x29_compact-c3-rB": 3,
+
+    "17x29_short-3-c": 18,
+
+    "17x29_short-4-c": 18,
+
+    "17x29_kracker-rF": 9,
+    "17x29_kracker-rB": 9,
+
+    "17x29_twin-1-rF": 9,
+    "17x29_twin-1-rB": 9,
+
+    "17x29_twin-2-rF": 9,
+    "17x29_twin-2-rB": 9,
+
+    "29x13_narrow-1": 9,
+    "29x13_narrow-2": 9,
+
+    "17x31_wide-1-cF": 3,
+    "18x31_wide-1-cFF": 3,
+    "17x31_wide-1-cB": 3,
+    "17x31_wide-2-cF": 3,
+    "18x31_wide-2-cFF": 3,
+    "17x31_wide-2-cB": 3,
+
+    "13x43_superwide": 4,
+
+    "25x22_shtorm": 12,
 });
 
 const Corner = Object.freeze({
@@ -832,12 +1398,15 @@ const Texture = Object.freeze({ // Arizona Tileset (NOT COMPREHENSIVE; MANY ARE 
     RUBBLE2: 6,
     RUBBLE3: 7,
     RUBBLE4: 8,
+    SANDY_BRUSH1: 9,
+    SANDY_BRUSH2: 11,
+    RUBBLE4: 8,
     SAND: 12,
     WATER: 17,
     DOUBLE_CLIFF: 18,
     CONCRETE1: 22,
     GREEN_MUD: 23,
-    RED1: 44,
+    RED_BRUSH1: 44,
     CORNER_CLIFF1: 45,
     CLIFF1: 46,
     RED2: 48,
@@ -854,26 +1423,28 @@ const Texture = Object.freeze({ // Arizona Tileset (NOT COMPREHENSIVE; MANY ARE 
 const BaseLayoutSelectionMode = Object.freeze({
     SAME_LAYOUT: 0,
     SAME_WIDTH: 1,
-    RANDOM: 2
+    SAME_LENGTH: 2,
+    SAME_DIMENSIONS: 3,
+    RANDOM: 4
 });
 
 // Variant: selectionChance
 const Variant = Object.freeze({
     ISLAND:  0.25, // Map border is water (and is accessible)
     ISLANDX: 0.25, // Map border is water (but inaccessible)
-    OCEAN:   0.10, // Battlefield is water
+    OCEAN:   0.05, // Battlefield is water
     BRIDGE:  0.80, // Narrow battlefield
-    SCATTER: 0.10, // Oils are removed from the base and scattered across the battlefield
-    PERLIN:  0.25  // Hilly battlefield
+    SCATTER: 0.15, // Oils are removed from the base and scattered across the battlefield
+    PERLIN:  0.20, // Hilly battlefield
 });
 
 const Compatible = Object.freeze({
-    ISLAND: ["ISLAND", "OCEAN", "BRIDGE", "SCATTER"],
+    ISLAND:  ["ISLAND", "OCEAN", "BRIDGE", "SCATTER"],
     ISLANDX: ["ISLANDX", "BRIDGE", "SCATTER"],
-    OCEAN: ["OCEAN", "ISLAND", "BRIDGE", "SCATTER"],
-    BRIDGE: ["BRIDGE", "ISLAND", "ISLANDX", "OCEAN", "SCATTER"],
+    OCEAN:   ["OCEAN", "ISLAND", "BRIDGE", "SCATTER"],
+    BRIDGE:  ["BRIDGE", "ISLAND", "ISLANDX", "OCEAN", "SCATTER"],
     SCATTER: ["SCATTER", "ISLAND", "ISLANDX", "OCEAN", "BRIDGE"],
-    PERLIN: ["PERLIN"]
+    PERLIN:  ["PERLIN"],
 });
 
 const CliffMap = new Map([
@@ -1031,9 +1602,6 @@ class Base {
 //
 // Functions
 //
-// function sym(xy) {
-//     return [CONST_ABSOLUTE_MAP_WIDTH - 1 - xy.x, CONST_ABSOLUTE_MAP_LENGTH - 1 - xy.y];
-// }
 function symp(playerNum) {
     return CONST_NUM_PLAYERS - 1 - playerNum;
 }
@@ -1114,12 +1682,65 @@ function weightedRandom(object) {
 function rand(lowerInclusive, upperInclusive) {
     return lowerInclusive + gameRand(upperInclusive - lowerInclusive + 1);
 }
-// TODO
-// function randomBaseLayout() {
-//     return string;
-// }
 function roughen(height) { // Decrease the height of a vertex by a random amount
     return Math.floor(Math.max(0, height - ROUGHNESS) + (gameRand() / RMAX * ROUGHNESS));
+}
+//
+// xy - an XY object representing the NW corner of the location where the layout is to be pasted
+// layout - an array of strings representing the layout
+// rotation - an integer 0, 1, 2, or 3 representing 0, 90, 180, and 270 degree clockwise rotation of the layout
+// mirror - a boolean for if the layout should be mirrored lengthwise (left becomes right, right becomes left)
+// player - an integer repsenting the player that the structures/droids belong to
+// oils - array of bools to act as a mask over the oils. true = place the oil. false = do not place the oil. To place every oil, pass in null.
+//
+function pasteLayout(xy, layout, rotation, mirror, player, oils) {
+    let width_t = layout[0].length;
+    let length_t = layout.length;
+    let oilIndex = 0;
+
+    if (oils != null && rotation == 2) {
+        oils = oils.toReversed();
+    }
+
+    for (let row = 0; row < length_t; row++) {
+        for (let col = 0; col < width_t; col++) {
+            let char = (() => {
+                switch (rotation) {
+                    case 0: return mirror ? layout[row][width_t-1-col] : layout[row][col];
+                    case 1: throw new Error("Not yet implemented"); // TODO
+                    case 2: return mirror ? layout[length_t-1-row][col] : layout[length_t-1-row][width_t-1-col];
+                    case 3: throw new Error("Not yet implemented"); // TODO
+                }
+            })();
+
+            switch (char) {
+                case "c":
+                    addStructure(xy.add(col,row+(rotation==2)), "A0CyborgFactory", /*rotation=*/(2+rotation)%4, /*modules=*/0, /*player=*/player);
+                    break;
+                case "f":
+                    addStructure(xy.add(col,row), "A0LightFactory", /*rotation=*/(2+rotation)%4, /*modules=*/2, /*player=*/player);
+                    break;
+                case "h":
+                    addStructure(xy.add(col+(mirror!=(rotation==2)),row+(rotation==2)), "A0CommandCentre", /*rotation=*/(0+rotation)%4, /*modules=*/0, /*player=*/player);
+                    break;
+                case "p":
+                    addStructure(xy.add(col+(mirror!=(rotation==2)),row+(rotation==2)), "A0PowerGenerator", /*rotation=*/(0+rotation)%4, /*modules=*/1, /*player=*/player);
+                    break;
+                case "r":
+                    addStructure(xy.add(col+(mirror!=(rotation==2)),row+(rotation==2)), "A0ResearchFacility", /*rotation=*/(0+rotation)%4, /*modules=*/1, /*player=*/player);
+                    break;
+                case "o":
+                    if (oils == null || oils[oilIndex++] == true) {
+                        addStructure(xy.add(col,row), "A0ResourceExtractor", /*rotation=*/(0+rotation)%4, /*modules=*/0, /*player=*/player);
+                        setTexture(xy.add(col,row), Texture.RED_CRATER);
+                    }
+                    break;
+                case "t":
+                    addDroid(xy.add(col,row), "ConstructionDroid", /*rotation=*/(2+rotation)%4, /*player=*/player);
+                    break;
+            }
+        }
+    }
 }
 
 
@@ -1147,14 +1768,18 @@ function roughen(height) { // Decrease the height of a vertex by a random amount
 let BASE_LAYOUT_SELECTION_MODE = (() => {
     switch (
         weightedRandom({
-            a: 4,
-            b: 4,
-            c: 1
+            a: 5,
+            b: 1,
+            c: 1,
+            d: 5,
+            e: 2
         })
     ) {
         case "a": return BaseLayoutSelectionMode.SAME_LAYOUT;
         case "b": return BaseLayoutSelectionMode.SAME_WIDTH;
-        case "c": return BaseLayoutSelectionMode.RANDOM;
+        case "c": return BaseLayoutSelectionMode.SAME_LENGTH;
+        case "d": return BaseLayoutSelectionMode.SAME_DIMENSIONS;
+        case "e": return BaseLayoutSelectionMode.RANDOM;
     }
 })();
 
@@ -1178,8 +1803,12 @@ let SUMMED_BASE_WIDTH = 0;
     switch (BASE_LAYOUT_SELECTION_MODE) {
 
         case BaseLayoutSelectionMode.SAME_LAYOUT:
+
+            // Select a random base layout, respecting weight
+            layoutProperty = weightedRandom(BaseLayoutWeights);
+
             // Select a random base layout
-            layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
+            // layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
 
             // Calculate the size
             baseWidth_t = BaseLayouts[layoutProperty][0].length;
@@ -1206,8 +1835,11 @@ let SUMMED_BASE_WIDTH = 0;
             break;
 
         case BaseLayoutSelectionMode.SAME_WIDTH:
+            // Select a random base layout, respecting weight
+            layoutProperty = weightedRandom(BaseLayoutWeights);
+
             // Select a random base layout
-            layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
+            // layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
 
             // Calculate the size
             baseWidth_t = BaseLayouts[layoutProperty][0].length;
@@ -1248,10 +1880,105 @@ let SUMMED_BASE_WIDTH = 0;
             }
             break;
 
+        case BaseLayoutSelectionMode.SAME_LENGTH:
+            // Select a random base layout, respecting weight
+            layoutProperty = weightedRandom(BaseLayoutWeights);
+
+            // Select a random base layout
+            // layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
+
+            // Calculate the size
+            baseWidth_t = BaseLayouts[layoutProperty][0].length;
+            baseLength_t = BaseLayouts[layoutProperty].length;
+
+            // Make a list of all base layouts that match the length
+            for (const property in BaseLayouts) {
+                if (BaseLayouts[property].length == baseLength_t) {
+                    matching.push(property)
+                }
+            }
+
+            // Select random base layouts
+            for (let i = 0; i < CONST_PLAYERS_PER_TEAM; i++) {
+                layoutProperty = matching[gameRand(matching.length)];
+
+                baseWidth_t = BaseLayouts[layoutProperty][0].length;
+                baseLength_t = BaseLayouts[layoutProperty].length;
+
+                // Update maxes
+                if (baseWidth_t > MAX_BASE_WIDTH) {
+                    MAX_BASE_WIDTH = baseWidth_t;
+                }
+                if (baseLength_t > MAX_BASE_LENGTH) {
+                    MAX_BASE_LENGTH = baseLength_t;
+                }
+
+                // Apply the layout
+                bases[i].layout = layoutProperty;
+                bases[i].bb.width_t = baseWidth_t;
+                bases[i].bb.length_t = baseLength_t;
+                bases[symp(i)].layout = layoutProperty;
+                bases[symp(i)].bb.width_t = baseWidth_t;
+                bases[symp(i)].bb.length_t = baseLength_t;
+
+                // Update sum
+                SUMMED_BASE_WIDTH += baseWidth_t;
+            }
+            break;
+
+        case BaseLayoutSelectionMode.SAME_DIMENSIONS:
+            // Select a random base layout, respecting weight
+            layoutProperty = weightedRandom(BaseLayoutWeights);
+
+            // Select a random base layout
+            // layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
+
+            // Calculate the size
+            baseWidth_t = BaseLayouts[layoutProperty][0].length;
+            baseLength_t = BaseLayouts[layoutProperty].length;
+
+            // Make a list of all base layouts that match the width and length
+            for (const property in BaseLayouts) {
+                if (BaseLayouts[property][0].length == baseWidth_t && BaseLayouts[property].length == baseLength_t) {
+                    matching.push(property)
+                }
+            }
+
+            // Select random base layouts
+            for (let i = 0; i < CONST_PLAYERS_PER_TEAM; i++) {
+                layoutProperty = matching[gameRand(matching.length)];
+
+                baseWidth_t = BaseLayouts[layoutProperty][0].length;
+                baseLength_t = BaseLayouts[layoutProperty].length;
+
+                // Update maxes
+                if (baseWidth_t > MAX_BASE_WIDTH) {
+                    MAX_BASE_WIDTH = baseWidth_t;
+                }
+                if (baseLength_t > MAX_BASE_LENGTH) {
+                    MAX_BASE_LENGTH = baseLength_t;
+                }
+
+                // Apply the layout
+                bases[i].layout = layoutProperty;
+                bases[i].bb.width_t = baseWidth_t;
+                bases[i].bb.length_t = baseLength_t;
+                bases[symp(i)].layout = layoutProperty;
+                bases[symp(i)].bb.width_t = baseWidth_t;
+                bases[symp(i)].bb.length_t = baseLength_t;
+
+                // Update sum
+                SUMMED_BASE_WIDTH += baseWidth_t;
+            }
+            break;
+
         case BaseLayoutSelectionMode.RANDOM:
             for (let i = 0; i < CONST_PLAYERS_PER_TEAM; i++) {
+                // Select a random base layout, respecting weight
+                layoutProperty = weightedRandom(BaseLayoutWeights);
+
                 // Select a random base layout
-                layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
+                // layoutProperty = Object.keys(BaseLayouts)[gameRand(Object.keys(BaseLayouts).length)];
 
                 // Calculate the size
                 baseWidth_t = BaseLayouts[layoutProperty][0].length;
@@ -1308,9 +2035,9 @@ let TEAMFIELD_WIDTH;
     // Select a divider width
     switch (
         weightedRandom({
-            a: 2,
-            b: 5,
-            c: 3,
+            a: 3,
+            b: 6,
+            c: 4,
             d: 1,
             e: 1,
             f: 2
@@ -1367,9 +2094,9 @@ let TEAMFIELD_LENGTH;
     switch (
         weightedRandom({
             a: 1,
-            b: 4,
-            c: 7,
-            d: 4,
+            b: 5,
+            c: 8,
+            d: 5,
             e: 1
         })
     ) {
@@ -1432,12 +2159,66 @@ let DIVIDER_LENGTH = (() => {
 })();
 
 
-let DITCH_WIDTH = rand(
-    Math.floor(BATTLEFIELD_WIDTH * 0.05),
-    Math.floor(TEAMFIELD_WIDTH / 2) - 2
-);
+let DITCH_WIDTH = (() => {
+    switch (
+        weightedRandom({
+            a: 5,
+            b: 15,
+            c: 25,
+            d: 20,
+            e: 7,
+            f: 3,
+            g: 9,
+            h: 11,
+            i: 5
+        })
+    ) {
+        case "a": return Math.floor(BATTLEFIELD_WIDTH * 0.05);
+        case "b": return Math.floor(BATTLEFIELD_WIDTH * 0.10);
+        case "c": return Math.floor(BATTLEFIELD_WIDTH * 0.15);
+        case "d": return Math.floor(BATTLEFIELD_WIDTH * 0.20);
+        case "e": return Math.floor(BATTLEFIELD_WIDTH * 0.25);
+        case "f": return Math.floor(BATTLEFIELD_WIDTH * 0.30);
+        case "g": return Math.floor(BATTLEFIELD_WIDTH * 0.35);
+        case "h": return Math.floor(BATTLEFIELD_WIDTH * 0.40);
+        case "i": return Math.floor(BATTLEFIELD_WIDTH * 0.50) - 2;
+    }
 
-let DITCH_LENGTH = BATTLEFIELD_LENGTH - 2 * rand(3, TEAMFIELD_LENGTH - 1);
+})();
+
+let DITCH_LENGTH = (() => {
+    switch (
+        weightedRandom({
+            a: 20,
+            b: 26,
+            c: 20,
+            d: 10,
+            e: 6,
+            f: 4,
+            g: 3,
+            h: 4,
+            i: 7
+        })
+    ) {
+        case "a": return BATTLEFIELD_LENGTH - 2 * Math.max(3, Math.floor(TEAMFIELD_LENGTH * 0.05));
+        case "b": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.15);
+        case "c": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.25);
+        case "d": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.35);
+        case "e": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.45);
+        case "f": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.55);
+        case "g": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.65);
+        case "h": return BATTLEFIELD_LENGTH - 2 * Math.floor(TEAMFIELD_LENGTH * 0.75);
+        case "i": return BATTLEFIELD_LENGTH - 2 * (TEAMFIELD_LENGTH - 1);
+    }
+
+})();
+
+// let DITCH_WIDTH = rand(
+//     Math.floor(BATTLEFIELD_WIDTH * 0.05),
+//     Math.floor(TEAMFIELD_WIDTH / 2) - 2
+// );
+//
+// let DITCH_LENGTH = BATTLEFIELD_LENGTH - 2 * rand(3, TEAMFIELD_LENGTH - 1);
 
 
 //
@@ -1446,6 +2227,7 @@ let DITCH_LENGTH = BATTLEFIELD_LENGTH - 2 * rand(3, TEAMFIELD_LENGTH - 1);
 let selectedVariants = (() => {
 
     let candidateVariants = [];
+    let selectedVariants = [];
 
     for (const prop in Variant) {
         if (gameRand() / RMAX < Variant[prop])
@@ -1456,14 +2238,29 @@ let selectedVariants = (() => {
         return [];
 
     let key = candidateVariants[gameRand(candidateVariants.length)];
+    selectedVariants.push(key);
 
-    return Compatible[key].filter((element) => candidateVariants.includes(element));
+    for (let candidateVariant of candidateVariants) {
+        let add = true;
+        for (let selectedVariant of selectedVariants) {
+            if (!Compatible[selectedVariant].includes(candidateVariant)) {
+                add = false;
+                break;
+            }
+        }
+        if (add == true) {
+            selectedVariants.push(candidateVariant);
+        }
+    }
+
+    return selectedVariants;
+    // return Compatible[key].filter((element) => candidateVariants.includes(element)); // this algorithm is wrong. If select SCATTER, could pick both ISLANDX and OCEAN
 
 })();
 
 
 // const ROUGHNESS = rand(25, 50);
-const ROUGHNESS = 50;
+const ROUGHNESS = 64;
 
 
 //
@@ -1482,7 +2279,7 @@ let BORDER_HEIGHT = (() => {
     }
 
     if (selectedVariants.includes("ISLANDX")) {
-        return rand(0, BASE_HEIGHT - ROUGHNESS);
+        return rand(CONST_MIN_HEIGHT, BASE_HEIGHT - ROUGHNESS);
     }
 
     if (selectedVariants.includes("OCEAN")) {
@@ -1495,7 +2292,7 @@ let BORDER_HEIGHT = (() => {
             b: 1
         })
     ) {
-        case "a": return rand(0, BASE_HEIGHT - ROUGHNESS);
+        case "a": return rand(CONST_MIN_HEIGHT, BASE_HEIGHT - ROUGHNESS);
         case "b": return rand(BASE_HEIGHT + ROUGHNESS, CONST_MAX_HEIGHT);
     }
 
@@ -1533,7 +2330,7 @@ let DIVIDER_HEIGHT = (() => {
             b: 1
         })
     ) {
-        case "a": return rand(0, BASE_HEIGHT - ROUGHNESS);
+        case "a": return rand(CONST_MIN_HEIGHT, BASE_HEIGHT - ROUGHNESS);
         case "b": return rand(BASE_HEIGHT + ROUGHNESS, CONST_MAX_HEIGHT);
     }
 
@@ -1554,11 +2351,23 @@ let DITCH_HEIGHT = (() => {
     }
 
     if (selectedVariants.includes("ISLANDX")) {
-        return rand(BORDER_HEIGHT, CONST_MAX_HEIGHT);
+        if (BORDER_HEIGHT > BATTLEFIELD_HEIGHT - ROUGHNESS) {
+            return rand(BATTLEFIELD_HEIGHT + ROUGHNESS, CONST_MAX_HEIGHT);
+        }
+        switch (
+            weightedRandom({
+                a: 4,
+                b: 3,
+                c: 1
+            })
+        ) {
+            case "a": return rand(BATTLEFIELD_HEIGHT + ROUGHNESS, CONST_MAX_HEIGHT);
+            case "b": return rand(BORDER_HEIGHT + ROUGHNESS, BATTLEFIELD_HEIGHT - ROUGHNESS);
+            case "c": return BORDER_HEIGHT;
+        }
     }
 
     if (selectedVariants.includes("OCEAN")) {
-
         switch (
             weightedRandom({
                 a: 1,
@@ -1578,7 +2387,7 @@ let DITCH_HEIGHT = (() => {
             c: 3
         })
     ) {
-        case "a": return rand(0, BATTLEFIELD_HEIGHT - ROUGHNESS);
+        case "a": return rand(CONST_MIN_HEIGHT, BATTLEFIELD_HEIGHT - ROUGHNESS);
         case "b": return BATTLEFIELD_HEIGHT;
         case "c": return rand(BATTLEFIELD_HEIGHT + ROUGHNESS, CONST_MAX_HEIGHT);
     }
@@ -1618,7 +2427,7 @@ let DIVIDER_TEXTURE = (() => {
         return Texture.DOUBLE_CLIFF;
     }
 
-    if (DIVIDER_HEIGHT < BASE_HEIGHT && DIVIDER_WIDTH > 1 && DIVIDER_LENGTH > 1 && gameRand(2)) {
+    if (DIVIDER_HEIGHT < BASE_HEIGHT && DIVIDER_HEIGHT < BORDER_HEIGHT && DIVIDER_WIDTH > 1 && DIVIDER_LENGTH > 1 && gameRand(2)) {
         return Texture.WATER;
     }
 
@@ -1634,18 +2443,20 @@ let BATTLEFIELD_TEXTURE = (() => {
 
     switch (
         weightedRandom({
-            a: 1,
-            b: 1,
-            c: 5,
-            d: 2,
-            e: 2,
+            a: 40,
+            b: 18,
+            c: 18,
+            d: 18,
+            e:  3,
+            f:  3,
         })
     ) {
-        case "a": return Texture.GREEN_MUD;
-        case "b": return Texture.RUBBLE1;
-        case "c": return Texture.CONCRETE1;
-        case "d": return Texture.SAND;
-        case "e": return Texture.RED1;
+        case "a": return Texture.CONCRETE1;
+        case "b": return Texture.SAND;
+        case "c": return Texture.SANDY_BRUSH1;
+        case "d": return Texture.RED_BRUSH1;
+        case "e": return Texture.GREEN_MUD;
+        case "f": return Texture.RUBBLE1;
     }
 
 })();
@@ -1669,7 +2480,7 @@ let DITCH_TEXTURE = (() => {
             case "b": return Texture.RUBBLE1;
             case "c": return Texture.CONCRETE1;
             case "d": return Texture.SAND;
-            case "e": return Texture.RED1;
+            case "e": return Texture.RED_BRUSH1;
         }
     }
 
@@ -1692,7 +2503,7 @@ let DITCH_TEXTURE = (() => {
             case "b": return Texture.RUBBLE1;
             case "c": return Texture.CONCRETE1;
             case "d": return Texture.SAND;
-            case "e": return Texture.RED1;
+            case "e": return Texture.RED_BRUSH1;
             case "f": return Texture.WATER;
         }
     }
@@ -1718,7 +2529,7 @@ let DITCH_TEXTURE = (() => {
         case "b": return Texture.RUBBLE1;
         case "c": return Texture.CONCRETE1;
         case "d": return Texture.SAND;
-        case "e": return Texture.RED1;
+        case "e": return Texture.RED_BRUSH1;
         case "f": return Texture.WATER;
     }
 
@@ -1728,9 +2539,9 @@ let scatterPercentage = (() => {
 
     switch (
         weightedRandom({
-            a: 5,
-            b: 4,
-            c: 3,
+            a: 11,
+            b: 7,
+            c: 4,
             d: 2,
             e: 1
         })
@@ -1765,9 +2576,7 @@ let numOilsToScatter = Math.ceil(Math.floor(NUM_OILS / 4) * scatterPercentage) *
 }
 
 
-let bridge = selectedVariants.includes("BRIDGE");
 let scatter = selectedVariants.includes("SCATTER");
-let perlin = selectedVariants.includes("PERLIN");
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1901,68 +2710,36 @@ for (const xy of bb_battlefield) {
     setTexture(xy, BATTLEFIELD_TEXTURE);
     setTileHeight(xy, BATTLEFIELD_HEIGHT);
 }
-for (let p = CONST_PLAYERS_PER_TEAM; p < CONST_NUM_PLAYERS; p++) { // Iterate over the SOUTHERN team, left to right
-    let layout = bases[p].layout;
-    let baseWidth_t = bases[p].bb.width_t;
-    let baseLength_t = bases[p].bb.length_t;
-    let origin = bases[p].bb.NW; // Get the North-West corner of the base
-
-    let scatterIndex = 0; // What index of the scatter array are we currently on
-
-    // Create the base
-    for (let row = 0; row < baseLength_t; row++) {
-        for (let col = 0; col < baseWidth_t; col++) {
-            let char = BaseLayouts[layout][row][col];
-
-            let xySouth = new XY(origin.x + col, origin.y + row);
-            let xyNorth = symbb(xySouth, bb_innerMap);
-
-            setTexture(xySouth, BASE_TEXTURE);
-            setTexture(xyNorth, BASE_TEXTURE);
-            setTileHeight(xySouth, BASE_HEIGHT);
-            setTileHeight(xyNorth, BASE_HEIGHT);
-
-            switch (char) {
-                case "c":
-                    xyNorth = symbb(xySouth.add(0,-1), bb_innerMap);
-                    addStructure(xySouth, "A0CyborgFactory", /*rotation=*/2, /*modules=*/0, /*player=*/p); // South (Team B)
-                    addStructure(xyNorth, "A0CyborgFactory", /*rotation=*/0, /*modules=*/0, /*player=*/symp(p)); // North (Team A)
-                    break;
-                case "f":
-                    addStructure(xySouth, "A0LightFactory", /*rotation=*/2, /*modules=*/2, /*player=*/p); // South (Team B)
-                    addStructure(xyNorth, "A0LightFactory", /*rotation=*/0, /*modules=*/2, /*player=*/symp(p)); // North (Team A)
-                    break;
-                case "h":
-                    xyNorth = symbb(xySouth.add(-1,-1), bb_innerMap);
-                    addStructure(xySouth, "A0CommandCentre", /*rotation=*/0, /*modules=*/0, /*player=*/p); // South (Team B)
-                    addStructure(xyNorth, "A0CommandCentre", /*rotation=*/2, /*modules=*/0, /*player=*/symp(p)); // North (Team A)
-                    break;
-                case "p":
-                    xyNorth = symbb(xySouth.add(-1,-1), bb_innerMap);
-                    addStructure(xySouth, "A0PowerGenerator", /*rotation=*/0, /*modules=*/1, /*player=*/p); // South (Team B)
-                    addStructure(xyNorth, "A0PowerGenerator", /*rotation=*/2, /*modules=*/1, /*player=*/symp(p)); // North (Team A)
-                    break;
-                case "r":
-                    xyNorth = symbb(xySouth.add(-1,-1), bb_innerMap);
-                    addStructure(xySouth, "A0ResearchFacility", /*rotation=*/0, /*modules=*/1, /*player=*/p); // South (Team B)
-                    addStructure(xyNorth, "A0ResearchFacility", /*rotation=*/2, /*modules=*/1, /*player=*/symp(p)); // North (Team A)
-                    break;
-                case "o":
-                    if (!scatter || (scatter && scatterArray[scatterIndex++])) {
-                        addStructure(xySouth, "A0ResourceExtractor", /*rotation=*/0, /*modules=*/0, /*player=*/p); // South (Team B)
-                        setTexture(xySouth, Texture.RED_CRATER);
-                        addStructure(xyNorth, "A0ResourceExtractor", /*rotation=*/2, /*modules=*/0, /*player=*/symp(p)); // North (Team A)
-                        setTexture(xyNorth, Texture.RED_CRATER);
-                    }
-                    break;
-                case "t":
-                    addDroid(xySouth, "ConstructionDroid", /*rotation=*/2, /*player=*/p); // South (Team B)
-                    addDroid(xyNorth, "ConstructionDroid", /*rotation=*/0, /*player=*/symp(p)); // North (Team A)
-                    break;
-            }
-        }
+for (const base of bases) {
+    for (const xy of base.bb) {
+        setTexture(xy, BASE_TEXTURE);
+        setTileHeight(xy, BASE_HEIGHT);
     }
 }
+for (let p = CONST_PLAYERS_PER_TEAM; p < CONST_NUM_PLAYERS; p++) { // Iterate over the SOUTHERN team, left to right
+    let layout = BaseLayouts[bases[p].layout];
+    let mirror = BASE_LAYOUT_SELECTION_MODE == BaseLayoutSelectionMode.SAME_LAYOUT ? 0 : gameRand(2);
+
+    // South
+    pasteLayout(
+        /*xy =       */ bases[p].bb.NW,
+        /*layout =   */ layout,
+        /*rotation = */ 0,
+        /*mirror =   */ mirror,
+        /*player =   */ p,
+        /*oils =     */ scatter ? scatterArray : null
+    );
+    // North
+    pasteLayout(
+        /*xy =       */ symbb(bases[p].bb.SE, bb_innerMap),
+        /*layout =   */ layout,
+        /*rotation = */ 2,
+        /*mirror =   */ mirror,
+        /*player =   */ symp(p),
+        /*oils =     */ scatter ? scatterArray : null
+    );
+}
+
 
 
 //
@@ -1995,12 +2772,37 @@ if (DIVIDER_WIDTH > 0 && DIVIDER_LENGTH > 0) {
 }
 
 
-if (bridge) {
-    for (const xy of bb_ditchWest) {
-        setTexture(xy, DITCH_TEXTURE);
-        setTexture(symbb(xy, bb_innerMap), DITCH_TEXTURE);
-        setTileHeight(xy, DITCH_HEIGHT);
-        setTileHeight(symbb(xy, bb_innerMap), DITCH_HEIGHT);
+if (selectedVariants.includes("BRIDGE")) {
+    if (gameRand(3)) { // Hourglass
+        let triangleSize = Math.min(
+            DITCH_WIDTH,
+            Math.floor(DITCH_LENGTH / 2)
+        );
+        let triangleWidth = triangleSize;
+        let xy = bb_ditchWest.NW;
+
+        for (let row = 0; row < DITCH_LENGTH; row++) {
+            if (row >= DITCH_LENGTH - triangleSize)
+                triangleWidth++;
+
+            for (let col = 0; col <= DITCH_WIDTH - triangleWidth; col++) {
+                setTexture(xy.add(col,row), DITCH_TEXTURE);
+                setTexture(symbb(xy.add(col,row), bb_innerMap), DITCH_TEXTURE);
+                setTileHeight(xy.add(col,row), DITCH_HEIGHT);
+                setTileHeight(symbb(xy.add(col,row), bb_innerMap), DITCH_HEIGHT);
+            }
+
+            if (row < triangleSize)
+                triangleWidth--;
+        }
+
+    } else { // Rectangle
+        for (const xy of bb_ditchWest) {
+            setTexture(xy, DITCH_TEXTURE);
+            setTexture(symbb(xy, bb_innerMap), DITCH_TEXTURE);
+            setTileHeight(xy, DITCH_HEIGHT);
+            setTileHeight(symbb(xy, bb_innerMap), DITCH_HEIGHT);
+        }
     }
 }
 
@@ -2027,11 +2829,14 @@ if (scatter) {
 
             attempts++;
 
-            // Collision check, 4x4 square.
+            // Collision checks
+            if (!xy.flat() || !xy.add(1,0).flat() || !xy.add(0,1).flat() || !xy.add(1,1).flat())
+                continue;
+
             let collision = false;
             for (let i = -1; i < 3; i++) {
                 for (let j = -1; j < 3; j++) {
-                    if (texture[xy.add(i,j).index()] == Texture.RED_CRATER || !xy.add(i,j).flat()) {
+                    if (texture[xy.add(i,j).index()] == Texture.RED_CRATER) {
                         collision = true;
                         break;
                     }
@@ -2044,9 +2849,9 @@ if (scatter) {
 
             let cluster = [
                 xy,
-                xy.add(1, 0),
-                xy.add(0, 1),
-                xy.add(1, 1),
+                xy.add(1,0),
+                xy.add(0,1),
+                xy.add(1,1),
             ]
 
             for (const xy of cluster) {
@@ -2154,7 +2959,7 @@ for (const xy of autoCliffZone) {
 }
 
 
-if (perlin) {
+if (selectedVariants.includes("PERLIN")) {
     noise.seed(1 + gameRand(65536));
 
     let perlinMap = [];
