@@ -1,52 +1,30 @@
 // https://github.com/attilabuti/SimplexNoise
 b=(x,y,o,a,f,e,l)=>(r=_=>o--?(v+=a*((x,y)=>(k=(x,y,i,j,t=.5-x*x-y*y)=>t>=0&&t**4*(h=p[i+p[j&c]&c]%12&15,u=h<8?x:y,v=h<4?y:0,(h&1?-u:u)+(h&2?-v:v)),70*(k(w=x-((i=~~(x+(s=(x+y)*.5*(d-1))))-(t=(i+(j=~~(y+s)))*(g=(3-d)/6))),z=y-(j-t),i&=c,j&=c)+k(w-(q=w>z)+g,z-!q+g,i+q,j+!q)+k(w-1+2*g,z-1+2*g,i+1,j+1))))(x*f,y*f),r(a*=e,f*=l)):v)(v=0);s=a=>{_=(m=>_=>((t=(t=m((t=m(t=(a=(a|0)+0x9e3779b9|0)^a>>>16,569420461))^t>>>15,0x735a2d97))^t>>>15)>>>0)/4294967296)(Math.imul,c=255);p=[...Array(c+1).keys()].map((v,i,q,h=q[r=i+~~(_(d=3**.5)*(c+1-i))])=>(q[r]=v,h))}
 
-const MAP_WIDTH = 250; // Width of the map, in tiles
-const MAP_LENGTH = 250; // Length of the map, in tiles
-const MAP_AREA = MAP_WIDTH * MAP_LENGTH; // Total number of tiles on the map
-
+const MAP_WIDTH = 250;
+const MAP_LENGTH = 250;
+const MAP_AREA = 62500;
 const MIN_TILE_HEIGHT = 0;
 const MAX_TILE_HEIGHT = 510;
-
 const NUM_PLAYERS = 10;
-const NUM_OILS = NUM_PLAYERS * 20;
 
 // Magic constants corresponding to the game engine's constants
-const TILE_XFLIP = 0x8000;
-const TILE_YFLIP = 0x4000;
 const TILE_ROT = 0x1000;
 const DROID_ROT = 0x4000;
 
-const RMAX = 0xffffffff;
-
 const STEEPNESS = 40;
+const OIL_ATTEMPTS = 325;
 
-// Arizona Tileset (NOT COMPREHENSIVE; MANY ARE OMITTED)
+// Arizona Tileset (MANY OMITTED)
 const Texture = Object.freeze({
-    RUBBLE1: 5,
-    RUBBLE2: 6,
-    RUBBLE3: 7,
-    RUBBLE4: 8,
-    SANDY_BRUSH1: 9,
-    SANDY_BRUSH2: 11,
-    RUBBLE4: 8,
     SAND: 12,
     WATER: 17,
     DOUBLE_CLIFF: 18,
     CONCRETE1: 22,
-    GREEN_MUD: 23,
     RED1: 44,
-    CORNER_CLIFF1: 45,
-    CLIFF1: 46,
-    RED2: 48,
-    RED3: 53,
-    RED4: 53,
     RED_CRATER: 56,
-    ROAD: 59,
     CLIFF2: 71,
     CORNER_CLIFF2: 75,
-    PINK_ROCK: 76,
-    CONCRETE2: 77
 });
 
 const TileType = Object.freeze({
@@ -56,16 +34,6 @@ const TileType = Object.freeze({
     TRUCK: 3,
     OIL: 4
 });
-
-function index(x, y) {
-    return MAP_WIDTH * y + x;
-}
-
-function coord(idx) {
-    const y = Math.floor(idx / MAP_WIDTH);
-    const x = idx - (y * MAP_WIDTH);
-    return [x, y];
-}
 
 // The following functions take in an index i, which represents a position at
 // coordinate (x, y), and return the index when the position is offset.
@@ -137,9 +105,9 @@ function rand(lowerInclusive, upperInclusive) {
     return lowerInclusive + gameRand(upperInclusive - lowerInclusive + 1);
 }
 
-// Algorithm
-// (1) For each of the 4 corners of a tile, get the height of the 2 adjacent corners.
-// (2) Identify the corner that is closer in height. Mark the edge between them as "shortest" (1). If there is a tie, don't mark anything (0). // TODO: should be "If the two edges are too similar, don't mark anything"
+// Auto-Cliff Algorithm
+// (1) For each of the 4 corners of a tile, compare the two adjacent edges
+// (2) If one edge is significantly shorter than the other, mark it.
 // (3) Use the following table to set the tile
 //
 // N E S W Tile     Rotation
@@ -173,16 +141,6 @@ function autoCliff(i) {
     const SW = heightmap[i_S(i)];
     const SE = heightmap[i_SE(i)];
 
-    // // Flat
-    // if (NW == NE && NW == SW && NW == SE) {
-    //     return;
-    // }
-    //
-    // // not Steep
-    // if (!(Math.max(NW, NE, SW, SE) - Math.min(NW, NE, SW, SE) > STEEPNESS)) {
-    //     return;
-    // }
-
     let bits = 0b0000;
 
     const lenNorth = Math.abs(NW - NE);
@@ -190,37 +148,38 @@ function autoCliff(i) {
     const lenSouth = Math.abs(SW - SE);
     const lenWest = Math.abs(NW - SW);
 
+    const range = Math.max(NW, NE, SW, SE) - Math.min(NW, NE, SW, SE);
+    const threshold = Math.floor(range * 0.30);
+
     // Corner NW
-    if (lenNorth < lenWest) {
+    if (lenWest - lenNorth > threshold) {
         bits |= Edge.N;
-    } else if (lenWest < lenNorth) {
+    } else if (lenNorth - lenWest > threshold) {
         bits |= Edge.W;
     }
     // Corner NE
-    if (lenNorth < lenEast) {
+    if (lenEast - lenNorth > threshold) {
         bits |= Edge.N;
-    } else if (lenEast < lenNorth) {
+    } else if (lenNorth - lenEast > threshold) {
         bits |= Edge.E;
     }
     // Corner SE
-    if (lenSouth < lenEast) {
+    if (lenEast - lenSouth > threshold) {
         bits |= Edge.S;
-    } else if (lenEast < lenSouth) {
+    } else if (lenSouth - lenEast > threshold) {
         bits |= Edge.E;
     }
     // Corner SW
-    if (lenSouth < lenWest) {
+    if (lenWest - lenSouth > threshold) {
         bits |= Edge.S;
-    } else if (lenWest < lenSouth) {
+    } else if (lenSouth - lenWest > threshold) {
         bits |= Edge.W;
     }
 
     if (CliffMap.has(bits)) {
         texturemap[i] = CliffMap.get(bits);
-        tiletypemap[i] = TileType.CLIFF;
     } else {
         texturemap[i] = Texture.DOUBLE_CLIFF | gameRand(4) * TILE_ROT;
-        tiletypemap[i] = TileType.CLIFF;
     }
 }
 
@@ -239,7 +198,8 @@ tiletypemap = Array(MAP_AREA);
 // Height mapping
 s(gameRand());
 for (let i = 0; i < MAP_AREA; i++) {
-    const [x, y] = coord(i);
+    const x = i % MAP_WIDTH;
+    const y = Math.floor(i / MAP_WIDTH);
 
     heightmap[i] = b(
         /* x           = */ x,
@@ -273,7 +233,7 @@ for (let i = 0; i < MAP_AREA; i++) {
     let h4 = heightmap[i_SE(i)];
     if (h1 == 0 && h2 == 0 && h3 == 0 && h4 == 0) {
         tiletypemap[i] = TileType.WATER;
-    } else if (Math.max(h1, h2, h3, h4) - Math.min(h1, h2, h3, h4) > STEEPNESS) { // autocliff by steepness
+    } else if (Math.max(h1, h2, h3, h4) - Math.min(h1, h2, h3, h4) > STEEPNESS) {
         tiletypemap[i] = TileType.CLIFF;
     } else {
         tiletypemap[i] = TileType.GROUND;
@@ -281,7 +241,7 @@ for (let i = 0; i < MAP_AREA; i++) {
 }
 
 // Cellular Automata to smooth cliffs + water
-for (let numPasses = 0; numPasses < 6; numPasses++) {
+for (let numPasses = 0; numPasses < 4; numPasses++) {
     for (let i = 0; i < MAP_AREA; i++) {
         if (tiletypemap[i] == TileType.GROUND) {
             continue;
@@ -339,10 +299,9 @@ for (let i = 0; i < MAP_AREA; i++) {
     const tS  = tiletypemap[i_S (i)];
     const tSE = tiletypemap[i_SE(i)];
 
-    // NOTE: Boosting can make dumb-cliffed tiles FLATTER. This is unintentional,
-    // but OK! The auto-cliff system will make 1-tile wide cliffs that actually look fine.
+    // Boost
     if (tE == TileType.CLIFF && tS == TileType.CLIFF && tSE == TileType.CLIFF) {
-        heightmap[i_SE(i)] =  Math.min(MAX_TILE_HEIGHT, heightmap[i_SE(i)] * 1.60);
+        heightmap[i_SE(i)] = Math.max(128, Math.min(MAX_TILE_HEIGHT, heightmap[i_SE(i)] * 1.60));
     }
 
     // Prune
@@ -362,72 +321,52 @@ while (trucksPlaced < NUM_PLAYERS) {
     let x = rand(3, MAP_WIDTH - 4);
     let y = rand(3, MAP_LENGTH - 4);
 
-    let i = index(x, y);
-
-    const tNW = tiletypemap[i_NW(i)];
-    const tN  = tiletypemap[i_N (i)];
-    const tNE = tiletypemap[i_NE(i)];
-    const tW  = tiletypemap[i_W (i)];
-    const tE  = tiletypemap[i_E (i)];
-    const tSW = tiletypemap[i_SW(i)];
-    const tS  = tiletypemap[i_S (i)];
-    const tSE = tiletypemap[i_SE(i)];
+    let i = MAP_WIDTH * y + x;
 
     if (
-        tNW == TileType.GROUND &&
-        tN  == TileType.GROUND &&
-        tNE == TileType.GROUND &&
-        tW  == TileType.GROUND &&
-        tE  == TileType.GROUND &&
-        tSW == TileType.GROUND &&
-        tS  == TileType.GROUND &&
-        tSE == TileType.GROUND
+        tiletypemap[i]       == TileType.GROUND &&
+        tiletypemap[i_NW(i)] == TileType.GROUND &&
+        tiletypemap[i_N (i)] == TileType.GROUND &&
+        tiletypemap[i_NE(i)] == TileType.GROUND &&
+        tiletypemap[i_W (i)] == TileType.GROUND &&
+        tiletypemap[i_E (i)] == TileType.GROUND &&
+        tiletypemap[i_SW(i)] == TileType.GROUND &&
+        tiletypemap[i_S (i)] == TileType.GROUND &&
+        tiletypemap[i_SE(i)] == TileType.GROUND
     ) {
         tiletypemap[i] = TileType.TRUCK;
-
         addDroid(x, y, "ConstructionDroid", /*rotation=*/gameRand(4), /*player=*/trucksPlaced);
-
         trucksPlaced++;
     }
 }
 
-
 // Scatter oils
-let oilsPlaced = 0;
-while (oilsPlaced < NUM_OILS) {
+for (let i = 0; i < OIL_ATTEMPTS; i++) {
     let x = rand(3, MAP_WIDTH - 4);
     let y = rand(3, MAP_LENGTH - 4);
 
-    let i = index(x, y);
-
-    const tNW = tiletypemap[i_NW(i)];
-    const tN  = tiletypemap[i_N (i)];
-    const tNE = tiletypemap[i_NE(i)];
-    const tW  = tiletypemap[i_W (i)];
-    const tE  = tiletypemap[i_E (i)];
-    const tSW = tiletypemap[i_SW(i)];
-    const tS  = tiletypemap[i_S (i)];
-    const tSE = tiletypemap[i_SE(i)];
+    let i = MAP_WIDTH * y + x;
 
     if (
-        tNW == TileType.GROUND &&
-        tN  == TileType.GROUND &&
-        tNE == TileType.GROUND &&
-        tW  == TileType.GROUND &&
-        tE  == TileType.GROUND &&
-        tSW == TileType.GROUND &&
-        tS  == TileType.GROUND &&
-        tSE == TileType.GROUND
+        tiletypemap[i]       == TileType.GROUND &&
+        tiletypemap[i_NW(i)] == TileType.GROUND &&
+        tiletypemap[i_N (i)] == TileType.GROUND &&
+        tiletypemap[i_NE(i)] == TileType.GROUND &&
+        tiletypemap[i_W (i)] == TileType.GROUND &&
+        tiletypemap[i_E (i)] == TileType.GROUND &&
+        tiletypemap[i_SW(i)] == TileType.GROUND &&
+        tiletypemap[i_S (i)] == TileType.GROUND &&
+        tiletypemap[i_SE(i)] == TileType.GROUND
     ) {
         tiletypemap[i] = TileType.OIL;
-
         addFeature(x, y, "OilResource", /*rotation=*/gameRand(4));
-
-        oilsPlaced++;
+        if (gameRand(2)) {
+            addStructure(x, y, "A0ResourceExtractor", /*rotation=*/gameRand(4), 0, 10);
+        }
     }
 }
 
-// Texturization
+// Texture mapping
 for (let i = 0; i < MAP_AREA; i++) {
     switch (tiletypemap[i]) {
     case TileType.GROUND:
@@ -468,5 +407,4 @@ for (let i = 0; i < MAP_AREA; i++) {
     }
 }
 
-// Done
 setMapData(MAP_WIDTH, MAP_LENGTH, texturemap, heightmap, structures, droids, features);
