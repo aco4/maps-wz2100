@@ -359,6 +359,7 @@ while (trucksPlaced < NUM_PLAYERS) {
             direction: gameRand(0x10000),
             player: trucksPlaced
         });
+        trucksPlaced++;
     }
 }
 
