@@ -328,7 +328,13 @@ while (trucksPlaced < NUM_PLAYERS) {
         tiletypemap[i +     MAP_WIDTH] == TileType.GROUND &&
         tiletypemap[i + 1 + MAP_WIDTH] == TileType.GROUND
     ) {
-        tiletypemap[i] = TileType.TRUCK;
+        tiletypemap[i] = TileType.OIL;
+        addFeature(x, y, "OilResource", /*rotation=*/gameRand(4));
+
+        tiletypemap[i - 1 - MAP_WIDTH] = TileType.TRUCK;
+        tiletypemap[i + 1 - MAP_WIDTH] = TileType.TRUCK;
+        tiletypemap[i - 1 + MAP_WIDTH] = TileType.TRUCK;
+        tiletypemap[i + 1 + MAP_WIDTH] = TileType.TRUCK;
         droids.push({
             name: "ConstructionDroid",
             position: [128 * (x - 1) + 64, 128 * (y - 1) + 64],
@@ -353,7 +359,6 @@ while (trucksPlaced < NUM_PLAYERS) {
             direction: gameRand(0x10000),
             player: trucksPlaced
         });
-        trucksPlaced++;
     }
 }
 
