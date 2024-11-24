@@ -1,5 +1,12 @@
+# Expanse
+"Expanse" is a Warzone 2100 map that features natural terrain.
+- **Expanse**: First attempt at natural terrain
+- **Expanse2**: Better generation and performance
+
+# Script-Generated
+This map is not handmade with a tool such as [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/overview). It is coded using JavaScript, and uses randomness to generate a new map each time you play.
+
 # Folder Structure
-Script generated maps should look like:
 ```
 10c-Expanse2/
 ├── multiplay/
@@ -27,7 +34,7 @@ To play it, compile to a `.zip`, then rename to `.wz`:
 ```
 Then place the `.wz` file in Warzone 2100's `/map/` directory.
 
-# Script Overview
+# Script Walkthrough
 The map is represented by 5 variables:
 ```js
 let texturemap = Array(MAP_AREA);
@@ -49,11 +56,12 @@ let water_tiles = new Set();
 ## Step 1: Height Mapping
 Random noise is generated with https://github.com/attilabuti/SimplexNoise. This is the primary generation time bottleneck, and could be sped up by using Warzone 2100's [native noise generator](https://github.com/Warzone2100/warzone2100/pull/2341) (available since 4.2.1). Unfortunately, at the time of writing, it's too buggy to be useful.
 
-Seed the noise generator. `gameRand(n)` generates a random number between `0` and `n-1` (inclusive). If called without parameters, generates a random number between `0` and `0xffffffff` (inclusive):
-:
+Seed the noise generator:
 ```js
 s(gameRand());
 ```
+`gameRand(n)` generates a random number between `0` and `n-1` (inclusive). If called without parameters, generates a random number between `0` and `0xffffffff` (inclusive).
+
 Generate a random noise value for each tile:
 ```js
 for (let i = 0; i < MAP_AREA; i++) {
@@ -96,7 +104,15 @@ The map is very large (250 * 250 = 62500 tiles). It's important to reduce the am
 - Water: flat tile with height = 0
 - Cliff: tile that meets the STEEPNESS threshold
 - Ground: everything else
-
+```js
+if (flat and height is 0) {
+    tiletypemap[i] = TileType.WATER;
+} else if (steep) {
+    tiletypemap[i] = TileType.CLIFF;
+} else {
+    tiletypemap[i] = TileType.GROUND;
+}
+```
 The height of a tile is determined by its 4 corners:
 ```js
 heightmap[i];
@@ -107,10 +123,10 @@ tiletypemap[i] = ...
 ```
 But there is a problem. Since we are initializing the tiletypemap at the same time as the heightmap transformation, the code above accesses pre-transformed values.
 ```js
-heightmap[i];                 // done
-heightmap[i + 1];             // not done
-heightmap[i + MAP_WIDTH];     // not done
-heightmap[i + 1 + MAP_WIDTH]; // not done
+heightmap[i];                 // transformed
+heightmap[i + 1];             // not transformed
+heightmap[i + MAP_WIDTH];     // not transformed
+heightmap[i + 1 + MAP_WIDTH]; // not transformed
 ```
 Solution:
 ```js
@@ -143,9 +159,11 @@ Now we can get the heights:
     const h2 = heightmap[iN];
     const h3 = heightmap[iW];
     const h4 = heightmap[iNW];
+    ...
 ```
 Then use them to determine the tile type:
 ```js
+    ...
     if (h1 == 0 && h2 == 0 && h3 == 0 && h4 == 0) {
         tiletypemap[iNW] = TileType.WATER;
     } else if (Math.max(h1, h2, h3, h4) - Math.min(h1, h2, h3, h4) > STEEPNESS) {
@@ -181,7 +199,7 @@ for (const i of cliff_tiles) {
     }
     ...
 ```
-Kill the cliff tile if its 8 neighbors are in the right pattern. First, count the neighbors. neighbor = 1, no neighbor = 0:
+Kill the cliff tile if its 8 neighbors are in a certain pattern. First, count the neighbors. neighbor = 1, no neighbor = 0:
 ```js
     ...
     let bitmap = 0b00000000;
@@ -258,7 +276,7 @@ When there is a group of 4 cliffs:
 . c c .
 . . . .
 ```
-The vertex in the middle should be raised up. Some random variation is added for a natural look:
+The vertex in the middle should be raised up:
 ```js
 for (const i of cliff_tiles) {
     if (tiletypemap[i_N (i)] == TileType.CLIFF &&
@@ -270,6 +288,7 @@ for (const i of cliff_tiles) {
     }
 }
 ```
+Some random variation is added for a natural look.
 ## Step 5: Scatter Trucks
 Place trucks randomly around the map.
 ```js
@@ -311,10 +330,10 @@ Only place truck if there is a 3x3 space:
         tiletypemap[i +     MAP_WIDTH] == TileType.GROUND &&
         tiletypemap[i + 1 + MAP_WIDTH] == TileType.GROUND
     ) {
-    ...
 ```
-Start with 4 trucks. Also give the player 1 guaranteed oil:
+Start with 4 trucks and give the player 1 guaranteed oil:
 ```js
+    ) {
         tiletypemap[i] = TileType.OIL;
         texturemap[i] = Texture.RED_CRATER;
         features.push({
@@ -409,11 +428,10 @@ for (let i = 0; i < MAP_AREA; i++) {
         break;
 ```
 ### Auto-Cliff Algorithm
+1. For each of the 4 corners of a tile, compare the two adjacent edges
+2. If one edge is significantly shorter than the other, mark it.
+3. Use a table to set the tile
 ```js
-// (1) For each of the 4 corners of a tile, compare the two adjacent edges
-// (2) If one edge is significantly shorter than the other, mark it.
-// (3) Use the following table to set the tile
-//
 // N E S W Tile     Rotation
 // 1   1   straight 0 (or 180)
 //   1   1 straight 90 (or 270)
@@ -488,7 +506,12 @@ function autoCliff(i) {
 }
 ```
 ## Step 7: Scatter Oils
-For optimization, combine this with the for loop in **Step 6**. In `case TileType.GROUND`:
+For optimization, combine this with the for loop in **Step 6**:
+```js
+    case TileType.GROUND:
+        // place oil
+```
+We can't place an oil on every single available tile, so use a random chance to decide:
 ```js
     case TileType.GROUND:
         if (!gameRand(OIL_CHANCE)) {
@@ -496,18 +519,23 @@ For optimization, combine this with the for loop in **Step 6**. In `case TileTyp
 ```
 If the random chance `!= 0`, don't try to place an oil. Lower `OIL_CHANCE` = more oils. Higher `OIL_CHANCE` = less oils. For each tile, the probability of attempting to place an oil is roughly `1/OIL_CHANCE`.
 
-Convert `i` to `x,y`:
+Once the random chance succeeds, convert `i` to `x,y`:
 ```js
             ...
             const x = i % MAP_WIDTH;
             const y = Math.floor(i / MAP_WIDTH);
             ...
 ```
-Don't place too close to the map edge, and require 3x3 empty space:
+Check if too close to the map edge:
 ```js
             ...
             if ((
                     x >= 3 && y >= 3 && x <= MAP_WIDTH - 4 && y <= MAP_LENGTH - 4
+            ...
+```
+Require 3x3 empty space:
+```js
+            ...
                 ) && (
                     tiletypemap[i - 1 - MAP_WIDTH] == TileType.GROUND &&
                     tiletypemap[i -     MAP_WIDTH] == TileType.GROUND &&
@@ -519,11 +547,10 @@ Don't place too close to the map edge, and require 3x3 empty space:
                     tiletypemap[i + 1 + MAP_WIDTH] == TileType.GROUND
                 )
             ) {
-                ...
 ```
 Place the oil:
 ```js
-                ...
+            ) {
                 tiletypemap[i] = TileType.OIL;
                 texturemap[i] = Texture.RED_CRATER;
                 features.push({
