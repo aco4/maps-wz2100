@@ -6,6 +6,26 @@
 # Script-Generated
 This map is not handmade with a tool such as [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/overview). It is coded using JavaScript, and uses randomness to generate a new map each time you play.
 
+# Make your own script-generated map
+First, decide:
+1. Map size
+2. Tileset (arizona, etc.)
+3. Map name
+4. Number of players
+5. License (CC0, etc.)
+
+Then, create a map in [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/overview).
+1. Resize the map
+2. Pick the tileset
+3. Paint the map with any texture (so you can compile without errors)
+4. Place a command center for each player anywhere on the map (so you can compile without errors)
+5. Place a truck for each player anywhere on the map (so you can compile without errors)
+6. Compile the map.
+7. FlaME will output a `.wz`, containing the required files for your map (`.lev`, `.gam`).
+8. Rename to `.wz` to `.zip`
+9. Extract the `.lev`, `.gam`, and `ttypes.ttp`. Everything else can be deleted.
+10. Create the folder structure
+
 # Folder Structure
 ```
 10c-Expanse2/
@@ -34,7 +54,9 @@ To play it, compile to a `.zip`, then rename to `.wz`:
 ```
 Then place the `.wz` file in Warzone 2100's `/map/` directory.
 
-# Script Walkthrough
+# Script Explanation
+All the code is in `game.js`.
+
 The map is represented by 5 variables:
 ```js
 let texturemap = Array(MAP_AREA);
