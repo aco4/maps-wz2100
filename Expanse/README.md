@@ -22,7 +22,7 @@ Then, create a map in [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/ov
 5. Place a truck for each player anywhere on the map (so you can compile without errors)
 6. Compile the map.
 7. FlaME will output a `.wz`, containing the required files for your map (`.lev`, `.gam`).
-8. Rename to `.wz` to `.zip`
+8. Rename the `.wz` to `.zip`
 9. Extract the `.lev`, `.gam`, and `ttypes.ttp`. Everything else can be deleted.
 10. Create the folder structure
 
@@ -32,11 +32,11 @@ Then, create a map in [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/ov
 ├── multiplay/
 │   └── maps/
 │       ├── 10c-Expanse2/
-|       |   ├── game.js
+│       │   ├── game.js
 │       │   └── ttypes.ttp
-|       |
+│       │
 │       └── 10c-Expanse2.gam
-|
+│
 └── 10c-Expanse2.xplayers.lev
 ```
 To play it, compile to a `.zip`, then rename to `.wz`:
@@ -45,11 +45,11 @@ To play it, compile to a `.zip`, then rename to `.wz`:
 ├── multiplay/
 │   └── maps/
 │       ├── 10c-Expanse2/
-|       |   ├── game.js
+│       │   ├── game.js
 │       │   └── ttypes.ttp
-|       |
+│       │
 │       └── 10c-Expanse2.gam
-|
+│
 └── 10c-Expanse2.xplayers.lev
 ```
 Then place the `.wz` file in Warzone 2100's `/map/` directory.
@@ -443,7 +443,7 @@ for (let i = 0; i < MAP_AREA; i++) {
         break;
     ...
 ```
-`TileType.Cliff` is difficult, and we need to do some thinking for it.
+`TileType.CLIFF` is difficult, and we need to do some thinking for it.
 ```js
     case TileType.CLIFF:
         texturemap[i] = autoCliff(i);
@@ -601,8 +601,6 @@ Done!
 ```js
 setMapData(MAP_WIDTH, MAP_LENGTH, texturemap, heightmap, structures, droids, features);
 ```
-# Minify
-To reduce map file size, consider minifying the code.
 
 
 ---
