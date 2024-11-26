@@ -39,7 +39,7 @@ Then, create a map in [FlaME](https://warzone.atlassian.net/wiki/spaces/FLAME/ov
 │
 └── 10c-Expanse2.xplayers.lev
 ```
-To play it, compile to a `.zip`, then rename to `.wz`:
+To play it, compress to a `.zip`, then rename to `.wz`:
 ```
 10c-Expanse2.wz
 ├── multiplay/
