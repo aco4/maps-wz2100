@@ -1,5 +1,6 @@
 # maps-wz2100
 A collection of maps for the real-time strategy game Warzone 2100.
+- [RTW](#RTW)
 - [Classic](#Classic)
 - [Island](#Island)
 - [Hills](#Hills)
@@ -16,6 +17,10 @@ A collection of maps for the real-time strategy game Warzone 2100.
 5. Download the map and move it into the `maps` folder
 6. Restart Warzone 2100
 7. Done
+
+## RTW
+Random Team War
+- [RTW_5v5](https://github.com/aco4/maps-wz2100/raw/main/maps/10c-RTW_5v5-beta3.wz)
 
 ## Classic
 ![NTW_3v3](https://github.com/aco4/maps-wz2100/raw/main/images/NTW_3v3.png)
