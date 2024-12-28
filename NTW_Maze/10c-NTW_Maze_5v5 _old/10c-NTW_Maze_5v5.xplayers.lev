@@ -1,0 +1,28 @@
+// Made with FlaME 1.29 Windows
+// Date: 2024/12/26 04:26:58
+// Author: arc
+// License: CC0
+
+level   NTW_Maze_5v5
+players 10
+type    14
+dataset MULTI_CAM_1
+game    "multiplay/maps/10c-NTW_Maze_5v5.gam"
+data    "wrf/multi/skirmish10.wrf"
+data    "wrf/multi/fog1.wrf"
+
+level   NTW_Maze_5v5
+players 10
+type    18
+dataset MULTI_T2_C1
+game    "multiplay/maps/10c-NTW_Maze_5v5.gam"
+data    "wrf/multi/t2-skirmish10.wrf"
+data    "wrf/multi/fog1.wrf"
+
+level   NTW_Maze_5v5
+players 10
+type    19
+dataset MULTI_T3_C1
+game    "multiplay/maps/10c-NTW_Maze_5v5.gam"
+data    "wrf/multi/t3-skirmish10.wrf"
+data    "wrf/multi/fog1.wrf"
