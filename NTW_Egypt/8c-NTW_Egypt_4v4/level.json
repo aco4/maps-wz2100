@@ -1,0 +1,10 @@
+{
+    "name": "NTW_Egypt_4v4",
+    "type": "skirmish",
+    "players": 8,
+    "tileset": "arizona",
+    "author": {
+        "name": "arc"
+    },
+    "spdx-license-id": "CC0-1.0"
+}
