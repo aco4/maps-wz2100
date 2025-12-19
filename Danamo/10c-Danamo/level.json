@@ -1,0 +1,10 @@
+{
+    "name": "Danamo",
+    "type": "skirmish",
+    "players": 10,
+    "tileset": "arizona",
+    "author": {
+        "name": "arc"
+    },
+    "spdx-license-id": "CC0-1.0"
+}
