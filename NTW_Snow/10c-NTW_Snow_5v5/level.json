@@ -1,0 +1,11 @@
+{
+    "name": "NTW_Snow_5v5",
+    "type": "skirmish",
+    "players": 10,
+    "tileset": "rockies",
+    "author": {
+        "name": "arc"
+    },
+    "created-date": "2025-12-18 22:15:00",
+    "spdx-license-id": "CC0-1.0"
+}
