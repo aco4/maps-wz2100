@@ -1,0 +1,11 @@
+{
+    "name": "Certuang",
+    "type": "skirmish",
+    "players": 10,
+    "tileset": "arizona",
+    "author": {
+        "name": "arc"
+    },
+    "created-date": "2026-05-28 12:00:00",
+    "spdx-license-id": "CC0-1.0"
+}

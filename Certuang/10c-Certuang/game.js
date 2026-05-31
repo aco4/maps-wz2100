@@ -395,3 +395,101 @@ const Layout = {
         features.push(feature);
     }
 };
+
+const texturemap = Array(11881).fill(17);
+const heightmap = Array(11881).fill(510);
+const structures = [];
+const droids = [];
+const features = [];
+
+for (let x = 4; x < 105; x++) {
+    for (let y = 4; y < 105; y++) {
+        const i = y*109 + x;
+        texturemap[i] = 22;
+    }
+}
+
+const team_B = [
+    "... ... ... ... ...",
+    "... ... ... ... ...",
+    "..f ..f ..f ..f ..f",
+    "                   ",
+    ".. .. ..t..t. . . .",
+    ".p .p .pt.Htc c c c",
+    "                   ",
+    ".. .. .. .. .. .. .",
+    ".p .r .r .r .r .r c",
+    "                   ",
+    ".. .. .. .. .. .. o",
+    ".p .p .p .p .p .p o",
+    "                   ",
+    "ooooooooooooooooooo",
+    "ooooooooooooooooooo",
+];
+
+const team_B_dict = {
+    "p": {
+        type: "STRUCTURE",
+        name: "A0PowerGenerator",
+        width: 2,
+        length: 2,
+        modules: 1
+    },
+    "r": {
+        type: "STRUCTURE",
+        name: "A0ResearchFacility",
+        width: 2,
+        length: 2,
+        modules: 1
+    },
+    "c": {
+        type: "STRUCTURE",
+        name: "A0CyborgFactory",
+        width: 1,
+        length: 2,
+        direction: 2 * 0x4000
+    },
+    "f": {
+        type: "STRUCTURE",
+        name: "A0LightFactory",
+        width: 3,
+        length: 3,
+        modules: 2,
+        direction: 2 * 0x4000
+    },
+    "t": {
+        type: "DROID",
+        name: "ConstructionDroid",
+        position: [64, 64],
+        direction: 2 * 0x4000
+    },
+    "H": {
+        type: "STRUCTURE",
+        name: "A0CommandCentre",
+        width: 2,
+        length: 2
+    },
+    "o": {
+        type: "STRUCTURE",
+        name: "A0ResourceExtractor",
+        width: 1,
+        length: 1
+    }
+};
+
+const team_A = Layout.rotateLayout(team_B, 2);
+const team_A_dict = Layout.rotateDictionary(team_B_dict, 2);
+
+Layout.paste(5, 5, team_A, team_A_dict, 0);
+Layout.paste(25, 5, team_A, team_A_dict, 1);
+Layout.paste(45, 5, team_A, team_A_dict, 2);
+Layout.paste(65, 5, team_A, team_A_dict, 3);
+Layout.paste(85, 5, team_A, team_A_dict, 4);
+
+Layout.paste(5, 89, team_B, team_B_dict, 5);
+Layout.paste(25, 89, team_B, team_B_dict, 6);
+Layout.paste(45, 89, team_B, team_B_dict, 7);
+Layout.paste(65, 89, team_B, team_B_dict, 8);
+Layout.paste(85, 89, team_B, team_B_dict, 9);
+
+setMapData(109, 109, texturemap, heightmap, structures, droids, features);
